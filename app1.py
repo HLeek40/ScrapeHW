@@ -16,3 +16,6 @@ def scrape():
     m_collection.insert_one(scraped)
     
     return scraped
+
+if __name__ == "__main__":
+    app.run(debug=True)

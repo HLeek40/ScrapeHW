@@ -37,6 +37,7 @@ def featured_image(browser):
     browser.visit(url2)
     #Complete button click to image using splinter
     browser.find_by_id('full_image').click()
+    browser.is_element_present_by_text('more info', wait_time=5)
     partial_url = "https//www.jpl.nasa.gov/"
     #Get partial link for image using splinter
     browser.find_link_by_partial_text('more info').click()
@@ -49,7 +50,7 @@ def featured_image(browser):
 
 def mars_weather(browser):
     #Visit Mars Weather Twitter and scrape latest weather tweet
-    url3 = '(https://twitter.com/marswxreport?lang=en'
+    url3 = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url3)
     #Use Beautiful Soup to scrape the tweet
     html = browser.html
@@ -92,11 +93,14 @@ def mars_hemispheres(browser):
     return(hemi_list)
 
 def scrape():
+    browser = initBrowser()
     mars_scrape = {}
 
-    mars_scrape['Title','Paragraph']=mars_news
-    mars_scrape['partial_url' + 'featured_image_url'['src']]=featured_image
-    mars_scrape['Mars_weather']=mars_weather
-    mars_scrape['html_table']=mars_facts
-    mars_scrape['Hemi_list']=mars_hemispheres
+    mars_news_stuff = mars_news(browser)
+    mars_scrape['Title']=mars_news_stuff[0]
+    mars_scrape['Paragraph']=mars_news_stuff[1]
+    mars_scrape['partial_url']=featured_image(browser)
+    mars_scrape['Mars_weather']=mars_weather(browser)
+    mars_scrape['html_table']=mars_facts(browser)
+    mars_scrape['Hemi_list']=mars_hemispheres(browser)
     return(mars_scrape)
