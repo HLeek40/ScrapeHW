@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import scrape_mars
 import pymongo
 
@@ -12,10 +12,11 @@ def scrape():
     
     m_collection = db.data_mars
 
-    scraped = scrape_mars.scrape()
-    m_collection.insert_one(scraped)
+    mars_scrape = scrape_mars.scrape()
+    print('app1.py line 16')
+    m_collection.insert_one(mars_scrape)
     
-    return scraped
+    return render_template("index.html", scraped=mars_scrape)
 
 if __name__ == "__main__":
     app.run(debug=True)

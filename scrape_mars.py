@@ -10,6 +10,7 @@ from selenium import webdriver
 import pymongo
 from sys import platform
 
+mars_scrape = {}
 
 def initBrowser():
     executable_path = {"executable_path": "chromedriver"}
@@ -93,14 +94,27 @@ def mars_hemispheres(browser):
     return(hemi_list)
 
 def scrape():
+    
     browser = initBrowser()
     mars_scrape = {}
 
     mars_news_stuff = mars_news(browser)
+    
     mars_scrape['Title']=mars_news_stuff[0]
     mars_scrape['Paragraph']=mars_news_stuff[1]
+    
     mars_scrape['partial_url']=featured_image(browser)
+    
     mars_scrape['Mars_weather']=mars_weather(browser)
+  
     mars_scrape['html_table']=mars_facts(browser)
+    
     mars_scrape['Hemi_list']=mars_hemispheres(browser)
+    
+    browser.quit()
+
     return(mars_scrape)
+
+
+
+
