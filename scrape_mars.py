@@ -39,14 +39,16 @@ def featured_image(browser):
     #Complete button click to image using splinter
     browser.find_by_id('full_image').click()
     browser.is_element_present_by_text('more info', wait_time=5)
-    partial_url = "https//www.jpl.nasa.gov/"
+    partial_url = "https//www.jpl.nasa.gov"
     #Get partial link for image using splinter
     browser.find_link_by_partial_text('more info').click()
     #Use BeautifulSoup to scrape the featured image
     html = browser.html
     soup1 = BeautifulSoup(html, 'html.parser')
-    featured_image_url = soup1.find('figure', class_='lede').a.img
-    return(partial_url + featured_image_url['src'])
+    time.sleep(5)
+    featured_image_url = soup1.find('figure', class_='lede').find('img')['src']
+    print (featured_image_url)
+    return(partial_url + featured_image_url)
     
 
 def mars_weather(browser):

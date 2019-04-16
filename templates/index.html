@@ -23,12 +23,12 @@
           </div>
         </div>
         <div class= 'row'>
-          <div class='col-md-7'>
+          <div class='col-md-8'>
             <h3 style=padding:15px ><strong>FEATURED MARS IMAGE</strong></h3>
-            <img src={{ scraped['partial_url'] }} height='550px' width='800px'/>
+            <img src='{{scraped.partial_url }}' class='img-response'/>
           </div>
-          <div class='col-md-5' style='padding:50px'>
-            <div class='card' style='width: 30rem;border=1'>
+          <div class='col-md-4' style='padding:50px'>
+            <div class='card' style='width: 30rem;border=1;'>
               <div class='card-body'>
                 <h4 class='card-title'>CURRENT WEATHER ON MARS</h4>
                 <p class='card-text'>{{ scraped['Mars_weather'] }}</p>
@@ -39,16 +39,17 @@
                 {{ scraped['html_table'] | safe }}
             </div>
             </div>
-            <div class='row'
-              <div class='col-md-12' style='padding:20px'>
-                <h3 style='text-align:center'><strong>MARS HEMISPHERES</strong></h3>
+            <div class='row'>
+              <!-- <div class='col-md-12'> -->
+                <h3 style='text-align:left;'><strong>MARS HEMISPHERES</strong></h3>
               </div>
-              {% for i in scraped['hemi_list'] %}
-              <div class='col-md-6 imBox'>
-               <figure>
-                 <img src={{ i['image_url'] }} height='300px' width='300px' />
-                 <figcaption><strong>{{ i['title'] }}</strong></figcaption>
-               </figure>
+        
+              {% for i in scraped.hemi_list %}
+              <div class='col-md-6'>
+              <div class='thumbnail'>
+                 <img src='{{ i.image_url}}'/>
+                 <figcaption><strong>{{ i.title }}</strong></figcaption>
+                </div>
                </div>
               {% endfor %}
            </div> 

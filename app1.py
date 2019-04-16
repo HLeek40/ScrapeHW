@@ -13,8 +13,8 @@ def scrape():
     m_collection = db.data_mars
 
     mars_scrape = scrape_mars.scrape()
-    print('app1.py line 16')
-    m_collection.insert_one(mars_scrape)
+   
+    m_collection.update({},mars_scrape,upsert=True)
     
     return render_template("index.html", scraped=mars_scrape)
 
