@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mars Data</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+</head>
+
+<body>
+    <div class="container fluid">
+      <div class="jumbotron text-center">
+        <h1><strong>MISSION TO MARS</strong></h1></h1>
+        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">scrape data</a></p>
+      </div>
+        <div class= 'row'>
+          <div class='col-md-1'>
+            </div>
+            <h3><strong>LATEST MARS NEWS</strong></h3>
+            <h4>{{ scraped['Title']}}</h4>
+            <h5>{{ scraped['Paragraph']}}</h5>
+          </div>
+        </div>
+        <div class= 'row'>
+          <div class='col-md-4'>
+            <h3<strong>FEATURED MARS IMAGE</strong></h3>
+            <hr>
+            <figure>
+              <img src={{ scraped['partial_url'] }} class='img-responsive' max-width: 25%>
+            </figure>
+          </div>
+          <div class='col-md-4'>
+            <div class='data-box'>
+                <h3>CURRENT WEATHER ON MARS</h3>
+                <hr>
+                {{ scraped['Mars_weather'] }}
+              </div>
+              <br>
+            <div class='data-box'>
+                <h3>MARS FACTS</h3>
+                <hr>
+                {{ scraped['html_table'] | safe }}
+            </div> 
+            <div class='row'>
+              <div class='col-md-4'>
+                <h3 style='text-align:center'><strong>MARS HEMISPHERES</strong></h3>
+              </div>
+              {% for i in scraped['hemi_list']%}
+              <div class='col-md-6'>
+                <figure>
+                 <img src= {{ i['image_url'] }} class='img-responsive' max-width: 5%/>
+                 <figcaption><strong>{{ i['title'] }}</strong></figcaption>
+                </figure>
+              {% endfor %}
+           </div>
+          </div>
+  </body>
+
+</html>
